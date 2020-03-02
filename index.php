@@ -37,23 +37,23 @@ switch($_GET['type']) {
         break;
     case 'ERROR':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::ERROR));
-        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::ERROR));
+        $log->pushHandler(new NativeMailerHandler("mail@mail.com", "errors", "ikke", Logger::ERROR));
         $log->error($input);
         break;
     case 'CRITICAL':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::CRITICAL));
-        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::CRITICAL));
+        $log->pushHandler(new NativeMailerHandler("mail@mail.com", "critical", "ikke", Logger::CRITICAL));
         $log->critical($input);
         break;
     case 'ALERT':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::ALERT));
-        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::ALERT));
+        $log->pushHandler(new NativeMailerHandler("mail@mail.com", "alert", "ikke", Logger::ALERT));
         $log->alert($input);
         break;
      // Emergency
     case 'EMERGENCY':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/emergency.log', Logger::EMERGENCY));
-        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::EMERGENCY));
+        $log->pushHandler(new NativeMailerHandler("mail@mail.com", "emergency", "ikke", Logger::EMERGENCY));
         $log->emergency($input);
         break;
 }
