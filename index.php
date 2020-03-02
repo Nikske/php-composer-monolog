@@ -8,11 +8,13 @@ require 'vendor/autoload.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\BrowserConsoleHandler;
+use Monolog\Handler\NativeMailerHandler;
 
 // Logger
 $log = new Logger('Logger');
 $input = $_GET['message'];
 switch($_GET['type']) {
+    // Info
     case 'DEBUG':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/info.log', Logger::DEBUG));
         $log->pushHandler(new BrowserConsoleHandler(Logger::DEBUG));
@@ -28,24 +30,30 @@ switch($_GET['type']) {
         $log->pushHandler(new BrowserConsoleHandler(Logger::NOTICE));
         $log->notice($input);
         break;
+     // Warning
     case 'WARNING':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::WARNING));
         $log->warning($input);
         break;
     case 'ERROR':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::ERROR));
+        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::ERROR));
         $log->error($input);
         break;
     case 'CRITICAL':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::CRITICAL));
+        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::CRITICAL));
         $log->critical($input);
         break;
     case 'ALERT':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/warning.log', Logger::ALERT));
+        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::ALERT));
         $log->alert($input);
         break;
+     // Emergency
     case 'EMERGENCY':
         $log->pushHandler(new StreamHandler(__DIR__.'/logs/emergency.log', Logger::EMERGENCY));
+        $log->pushHandler(new NativeMailerHandler("copeb15058@jalcemail.net", "hallokes", "copeb15058@jalcemail.net", Logger::EMERGENCY));
         $log->emergency($input);
         break;
 }
